@@ -98,7 +98,16 @@ namespace DeliveryServiceApp
             Console.WriteLine("\nСтатус транспорту:");
             foreach (var t in transports)
             {
-                string status = t.IsBusy ? "Зайнятий" : "Вільний";
+                string status;
+
+                if (t.IsBusy)
+                {
+                    status = "Зайнятий";
+                }
+                else
+                {
+                    status = "Вільний";
+                }
                 Console.WriteLine($"  - {t.Name}: {status}");
             }
 
