@@ -2,7 +2,8 @@
 {
     public class Car : Transport
     {
-        public Car() : base("Автомобіль") { }
+        private const double WeightLimit = 200.0;
+        public Car() : base("Автомобіль", WeightLimit) { }
 
         public override decimal CalculateCost(Order order)
         {

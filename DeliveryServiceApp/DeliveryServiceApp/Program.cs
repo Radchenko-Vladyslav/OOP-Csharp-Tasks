@@ -37,8 +37,8 @@
 
             service.ShowStatus();
 
-            service.CompleteDelivery(order1, "Картка");
-            service.CompleteDelivery(order2, "Готівка");
+            service.CompleteDelivery(order1, new CardPayment());
+            service.CompleteDelivery(order2, new CashPayment());
 
             service.ShowStatus();
         }

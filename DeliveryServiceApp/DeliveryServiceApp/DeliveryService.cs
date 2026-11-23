@@ -66,7 +66,7 @@ namespace DeliveryServiceApp
             return true;
         }
 
-        public void CompleteDelivery(Order order, string paymentMethod)
+        public void CompleteDelivery(Order order, IPayment payment)
         {
             if (!orderTransportMap.ContainsKey(order))
             {
@@ -74,13 +74,21 @@ namespace DeliveryServiceApp
                 return;
             }
 
+            if (payment == null)
+            {
+                Console.WriteLine("[Помилка] Не вказано спосіб оплати.");
+                return;
+            }
+
             Transport transport = orderTransportMap[order];
             decimal cost = transport.CalculateCost(order);
+
+            payment.Pay(cost);
 
             transport.IsBusy = false;
             orderTransportMap.Remove(order);
 
-            string record = $"Замовлення #{order.Id} ({order.Description}) доставлено транспортом [{transport.Name}]. Вартість: {cost} грн. Оплата: {paymentMethod}.";
+            string record = $"Замовлення #{order.Id} ({order.Description}) доставлено транспортом [{transport.Name}]. Вартість: {cost} грн. Оплата: {payment.Name}.";
             history.Add(record);
 
             Console.WriteLine($"[Доставка виконана] {record}");

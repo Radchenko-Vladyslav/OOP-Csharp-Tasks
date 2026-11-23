@@ -2,7 +2,8 @@
 {
     public class Truck : Transport
     {
-        public Truck() : base("Вантажівка") { }
+        private const double WeightLimit = 1000.0;
+        public Truck() : base("Вантажівка", WeightLimit) { }
 
         public override decimal CalculateCost(Order order)
         {

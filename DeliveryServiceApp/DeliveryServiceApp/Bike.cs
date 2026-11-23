@@ -2,7 +2,8 @@
 {
     public class Bike : Transport
     {
-        public Bike() : base("Велосипед") { }
+        private const double WeightLimit = 10.0;
+        public Bike() : base("Велосипед", WeightLimit) { }
 
         public override decimal CalculateCost(Order order)
         {
@@ -11,7 +12,7 @@
 
         public override bool CanTake(Order order)
         {
-            return order.Distance <= 10.0;
+            return base.CanTake(order) && order.Distance <= 10.0;
         }
     }
 }
